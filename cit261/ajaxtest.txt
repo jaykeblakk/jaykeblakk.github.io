@@ -1,0 +1,2 @@
+This is a test to show how AJAX works!
+This text should appear in the div below the code.

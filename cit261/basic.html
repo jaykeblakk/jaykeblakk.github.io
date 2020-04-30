@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="CIT 261 Projects">
+<title>CIT 261 Code</title>
+<style>
+    header {
+        font-family: Raleway;
+        font-size: 35px;
+        text-align: center;
+        grid-area: header;
+        color: white;
+    }
+    
+    body {
+        text-align: left;
+        background-image: linear-gradient(90deg, #13547a, #80d0c7);
+    }
+    
+    h1 {
+        font-family: Raleway;
+        font-size: 30px;
+        color: white;
+        margin-left: 10px;
+    }
+    
+    button {
+        border-radius: 5px;
+        border: none;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+        width: 200px;
+        height: 50px;
+        font-family: Raleway;
+        background-color: blue;
+        font-size: 20px;
+    }
+    
+    button:active {
+        background: purple;
+    }
+    
+    button:visited {
+        background: purple
+    }
+    
+    div.codeblock {
+        border-color: black;
+        border-radius: 7px;
+        border: solid;
+    }
+    
+    code {
+        color: white;
+        font-size: 16px;
+    }
+    
+    .runbutton {
+        border-radius: 5px;
+        border: none;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+        width: 100px;
+        height: 40px;
+        font-family: Raleway;
+        background-color: blue;
+        font-size: 20px;
+        margin-bottom: 2px;
+        margin-left: 2px;
+    }
+    
+    .display {
+        color: white;
+        font-family: Raleway;
+        font-size: 20px;
+    }
+    
+    pre {
+        background-color: gray;
+        border-radius: 25px;
+    }
+    
+    @keyframes animated {
+        0% {left:0px; top:0px;}
+        25%{left:100px; top:0px;}
+        50%{left:100px; top:100px;}
+        75%{left:0px; top:100px;}
+        100%{left:0px; top:0px;}
+    }
+    
+    .animation {
+        position: relative;
+        animation-name: animated;
+        animation-duration: 5s;
+    }
+    
+    .hide {
+        display: none;
+    }
+    
+    canvas {
+        border: 1px solid white;
+        width: 300px;
+    }
+    
+    .button_transition {
+        transition: width 2s;
+    }
+    
+    .button_transition:hover {
+        background-color: orange;
+        width: 200px;
+    }
+    
+    .button_transformation {
+        transform: rotate(30deg);
+    }
+    
+</style>
+    
+
+<script>
+function loopFunction()
+{
+    var i = 0;
+    while(i<5)
+        {
+            var display = document.getElementById('display1');
+            display.innerHTML += "The loop has run " + i + " times." + "<br>";
+            i++;
+        }
+}
+
+var test1 = 2;
+var test2 = 5;
+
+function testFunction(testParam1, testParam2)
+{
+    var answer = testParam1 * testParam2;
+    var display = document.getElementById('display2')
+    if (answer <= 10)
+        {
+            display.innerHTML = answer;
+        }
+    else
+        {
+            display.innerHTML = "The answer is greater than 10.";
+        }
+}
+    
+function createArrays()
+{
+    var display = document.getElementById('display3');
+    var boardgames = ['Catan', 'Sorry', 'Aquire', 'Monopoly'];
+    display.innerHTML += "The first element in the Array is: " + boardgames[0] + "<br>";
+    display.innerHTML += "The second and third elements in the Array are: " + boardgames[1] + " " + boardgames[2] + "<br>";
+    display.innerHTML += "The entire array is: " + boardgames + "<br>";
+    
+    var videogames = new Array();
+    videogames['Title'] = 'Halo';
+    videogames['Subtitle'] = 'Combat Evolved';
+    display.innerHTML += "Game title: " + videogames.Title + "<br>";
+    display.innerHTML += "Game Subtitle: " + videogames.Subtitle + "<br>";
+    videogames['Title'] = 'Starcraft';
+    videogames['Subtitle'] = 'Wings of Liberty';
+    display.innerHTML += "New game title: " + videogames.Title + "<br>";
+    display.innerHTML += "New game subtitle: " + videogames.Subtitle + "<br>";
+}
+
+    
+function json()
+{
+    var display = document.getElementById('display4');
+    var obj = '{ "Name": "Faker", "Role": "Mid Lane", "Championships": {"Championship_1": 2013, "Championship_2": 2015, "Championship_3": 2016, "Championship_4": 2017},"Team": "SKT"}';
+    var FakerJSON = JSON.stringify(obj);
+    display.innerHTML += "This is the string:" + "<br>";
+    display.innerHTML += FakerJSON + "<br>" + "<br>";
+    var Faker = JSON.parse(FakerJSON);
+    display.innerHTML += "This is the JSON Object:" + "<br>";
+    display.innerHTML += Faker;
+}
+
+    
+function Computer(drive, processor, os, graphics)
+{
+    this.drive = drive;
+    this.processor = processor;
+    this.os = os;
+    this.graphics = graphics;
+}
+
+Computer.prototype.specs = function() {
+    var display = document.getElementById('display5');
+    display.innerHTML += "This computer is a desktop that currently has these specs: " + "<br>";
+    display.innerHTML += "Hard Drive - " + this.drive + "<br>";
+    display.innerHTML += "Processor - " + this.processor + "<br>";
+    display.innerHTML += "OS - " + this.os + "<br>";
+    display.innerHTML += "Graphics - " + this.graphics + "<br>";
+    display.innerHTML += "<br>";
+}
+
+function Laptop(drive, processor, os, graphics, brand)
+{
+    Computer.call(this, drive, processor, os, graphics);
+    this.brand = brand;
+}
+
+Laptop.prototype.specs = function()
+{
+    var display = document.getElementById('display5');
+    display.innerHTML += "This computer is a laptop that currently has these specs: " + "<br>";
+    display.innerHTML += "Hard Drive - " + this.drive + "<br>";
+    display.innerHTML += "Processor - " + this.processor + "<br>";
+    display.innerHTML += "OS - " + this.os + "<br>";
+    display.innerHTML += "Graphics - " + this.graphics + "<br>";
+    display.innerHTML += "Brand - " + this.brand + "<br>";
+    display.innerHTML += "<br>";
+}
+
+function createComputers()
+{
+    var laptop1 = new Laptop('Seagate', 'AMD', 'Windows 7', 'AMD', 'Dell');
+    var computer1 = new Computer('Western Digital', 'Intel', 'Windows 10', 'NVIDIA');
+    var laptop2 = new Laptop('Barracuda', 'Apple A5', 'OS X', 'On-Board graphics', 'Apple Macbook Pro')
+    computer1.specs();
+    laptop1.specs();
+    laptop2.specs();
+}
+    
+function loadJSON() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("display6").innerHTML += this.responseText;
+        }
+    };
+    xhttp.open("GET", "ajaxtest.json", true);
+    xhttp.send()
+}
+    
+function storeStrings() {
+    var display = document.getElementById('display7');
+    var testString = "This is a string to test out Localstorage API's.";
+    window.localStorage.setItem('Test String', testString);
+    var localstoragestring = window.localStorage.getItem('Test String');
+    display.innerHTML += "We have set the localstorage item to the test string shown below:<br>"
+    display.innerHTML += localstoragestring + "<br>";
+    window.localStorage.clear();
+    display.innerHTML += "LocalStorage has been cleared."
+}
+    
+function changeDocument() {
+    var header = document.getElementById("changeheader");
+    var para = document.createElement("p");
+    var text = document.createTextNode("DOM Manipulation Code Success!");
+    var titles = document.querySelectorAll('h1');
+    titles[9].style.color = "black";
+    para.appendChild(text);
+    header.appendChild(para);
+}
+    
+function fixDocument() {
+    var header = document.getElementById("changeheader");
+    header.removeChild(header.childNodes[1]);
+    header.style.color = "white";
+}
+
+function changeCSS() {
+    var titles = document.querySelectorAll('h1');
+    titles[11].style.color = "black";
+}
+
+function addClass() {
+    var titles = document.querySelectorAll('h1');
+    titles[11].classList.add("hide");
+}
+    
+function removeClass() {
+    var titles = document.querySelectorAll('h1');
+    titles[11].classList.remove("hide");
+}
+    
+function startAnimation() {
+    var button = document.getElementById("animated_button");
+    button.classList.add("animation");
+}
+    
+function changeButtonColor() {
+    var button = document.getElementById("onclick_button");
+    button.style.background = "green";
+}
+    
+function changeButton() {
+    var button = document.getElementById("onclick_button");
+    button.addEventListener("click", changeButtonColor);
+}
+    
+function makeCanvas() {
+    var canvasArea = document.getElementById("canvas");
+    ctx = canvasArea.getContext("2d");
+    ctx.font = "20px Raleway";
+    ctx.fillText("This is built in a canvas!", 10, 50);
+}
+    
+function triggerTransition() {
+    var button = document.getElementById("transition_button");
+    button.classList.add("button_transition");
+}
+    
+function triggerTransform() {
+    var button = document.getElementById("transform_button");
+    button.classList.add("button_transformation");
+}
+
+function startCSS3Animation() {
+    var button = document.getElementById("animated_button2");
+    button.classList.add("animation");
+}
+</script>
+    
+    
+
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    
+<body>
+    <header>CIT 261 Fluency Code</header>
+    <h1>Week 1 Submissions</h1>
+    <div class="codeblock">
+        <h1>Loops & Functions</h1>
+    <pre>
+    <code>
+    function loopFunction()
+    {
+        var i = 0;
+        while(i &#60 5) {
+                var display = document.getElementById('display1');
+                display.innerHTML += "The loop has run " + i + " times.";
+                i++;
+        }
+    }
+    </code>
+    </pre>
+        <div class="display" id="display1"></div>
+        <button class="runbutton" onclick="loopFunction()">Run</button>
+    </div>
+    <br>
+        <div class="codeblock">
+        <h1>Variables & Parameters</h1>
+    <pre>
+    <code>
+    var test1 = 2;
+    var test2 = 5;
+
+    function testFunction(testParam1, testParam2)
+    {
+        var answer = testParam1 * testParam2;
+        var display = document.getElementById('display2');
+        if (answer &lt= 10)
+            {
+                display.innerHTML = answer;
+            }
+        else
+            {
+                display.innerHTML = "The answer is greater than 10.";
+            }
+    }
+    </code>
+    </pre>
+        <div class="display" id="display2"></div>
+        <button class="runbutton" onclick="testFunction(test1, test2)">Run</button>
+    </div>
+    <br>
+    <div class="codeblock">
+    <h1>Arrays</h1>
+    <pre>
+    <code>
+    function createArrays()
+    {
+        var display = document.getElementById('display3');
+        var boardgames = ['Catan', 'Sorry', 'Aquire', 'Monopoly'];
+        display.innerHTML += "The first element in the Array is: " + boardgames[0];
+        display.innerHTML += "The second and third elements in the Array are: " + boardgames[1] + " " + boardgames[2];
+        display.innerHTML += "The entire array is: " + boardgames;
+
+        var videogames = new Array();
+        videogames['Title'] = 'Halo';
+        videogames['Subtitle'] = 'Combat Evolved';
+        display.innerHTML += "Game title: " + videogames.Title;
+        display.innerHTML += "Game Subtitle: " + videogames.Subtitle;
+        videogames['Title'] = 'Starcraft';
+        videogames['Subtitle'] = 'Wings of Liberty';
+        display.innerHTML += "New game title: " + videogames.Title;
+        display.innerHTML += "New game subtitle: " + videogames.Subtitle;
+    }
+    </code>
+    </pre>
+        <div class="display" id="display3"></div>
+        <button class="runbutton" onclick="createArrays()">Run</button>
+    </div>
+    <br>
+        <div class="codeblock">
+    <h1>JSON Parsing & Stringify</h1>
+    <pre>
+    <code>
+    var display = document.getElementById('display4');
+    var obj = '{ "Name": "Faker", "Role": "Mid Lane", "Championships": {"Championship_1": 2013, 
+    "Championship_2": 2015, "Championship_3": 2016, "Championship_4": 2017},"Team": "SKT"}';
+    var FakerJSON = JSON.stringify(obj);
+    display.innerHTML += "This is the string:";
+    display.innerHTML += FakerJSON;
+    var Faker = JSON.parse(FakerJSON);
+    display.innerHTML += "This is the JSON Object:";
+    display.innerHTML += Faker;
+    </code>
+    </pre>
+        <div class="display" id="display4"></div>
+        <button class="runbutton" onclick="json()">Run</button>
+    </div>
+    <br>
+            <div class="codeblock">
+    <h1>Objects, Inheritance, & Methods</h1>
+    <pre>
+    <code>
+    function Computer(drive, processor, os, graphics)
+    {
+        this.drive = drive;
+        this.processor = processor;
+        this.os = os;
+        this.graphics = graphics;
+    }
+
+    Computer.prototype.specs = function() {
+        var display = document.getElementById('display5');
+        display.innerHTML += "This computer is a desktop that currently has these specs: ";
+        display.innerHTML += "Hard Drive - " + this.drive;
+        display.innerHTML += "Processor - " + this.processor;
+        display.innerHTML += "OS - " + this.os;
+        display.innerHTML += "Graphics - " + this.graphics;
+    }
+
+    function Laptop(drive, processor, os, graphics, brand)
+    {
+        Computer.call(this, drive, processor, os, graphics);
+        this.brand = brand;
+    }
+
+    Laptop.prototype.specs = function()
+    {
+        var display = document.getElementById('display5');
+        display.innerHTML += "This computer is a laptop that currently has these specs: ";
+        display.innerHTML += "Hard Drive - " + this.drive;
+        display.innerHTML += "Processor - " + this.processor;
+        display.innerHTML += "OS - " + this.os;
+        display.innerHTML += "Graphics - " + this.graphics;
+        display.innerHTML += "Brand - " + this.brand;
+    }
+
+    function createComputers()
+    {
+        var laptop1 = new Laptop('Seagate', 'AMD', 'Windows 7', 'AMD', 'Dell');
+        var computer1 = new Computer('Western Digital', 'Intel', 'Windows 10', 'NVIDIA');
+        var laptop2 = new Laptop('Barracuda', 'Apple A5', 'OS X', 'On-Board graphics', 'Apple Macbook Pro')
+        computer1.specs();
+        laptop1.specs();
+        laptop2.specs();
+    }
+    </code>
+    </pre>
+        <div class="display" id="display5"></div>
+        <button class="runbutton" onclick="createComputers()">Run</button>
+    </div>
+    <br>
+    <h1>Week 5 Submissions</h1>
+            <div class="codeblock">
+        <h1>AJAX</h1>
+    <pre>
+    <code>
+    function loadJSON() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("display6").innerHTML += this.responseText;
+            }
+        };
+        xhttp.open("GET", "ajaxtest.json", true);
+        xhttp.send();
+    }
+    </code>
+    </pre>
+        <div class="display" id="display6"></div>
+        <button class="runbutton" onclick="loadJSON()">Run</button>
+    </div>
+    <br>
+        <div class="codeblock">
+        <h1>Localstorage API's</h1>
+    <pre>
+    <code>
+    function storeStrings() {
+        var display = document.getElementById('display7');
+        var testString = "This is a string to test out Localstorage API's.";
+        window.localStorage.setItem('Test String', testString);
+        var localstoragestring = window.localStorage.getItem('Test String');
+        display.innerHTML += "We have set the localstorage item to the test string shown below:"
+        display.innerHTML += localstoragestring;
+        window.localStorage.clear();
+        display.innerHTML += "LocalStorage has been cleared."
+    }
+    </code>
+    </pre>
+        <div class="display" id="display7"></div>
+        <button class="runbutton" onclick="storeStrings()">Run</button>
+    </div>
+    <br>
+            <div class="codeblock">
+        <h1 id="changeheader">DOM Manipulation</h1>
+    <pre>
+    <code>
+    function changeDocument() {
+        var header = document.getElementById("changeheader");
+        var para = document.createElement("p");
+        var text = document.createTextNode("DOM Manipulation Code Success!");
+        var titles = document.querySelectorAll('h1');
+        titles[7].style.color = "black";
+        para.appendChild(text);
+        header.appendChild(para);
+    }
+
+    function fixDocument() {
+        var header = document.getElementById("changeheader");
+        header.removeChild(header.childNodes[1]);
+        header.style.color = "white";
+    }
+    </code>
+    </pre>
+        <div class="display" id="display8"></div>
+        <button class="runbutton" onclick="changeDocument()">Run</button>
+        <button class="runbutton" onclick="fixDocument()">Clear</button>
+    </div>
+    <br>
+    <h1>Week 7 Submissions</h1>
+                <div class="codeblock">
+        <h1>Class Manipulation</h1>
+    <pre>
+    <code>
+        function addClass() {
+            var titles = document.querySelectorAll('h1');
+            titles[10].classList.add("hide");
+        }
+
+        function removeClass() {
+            var titles = document.querySelectorAll('h1');
+            titles[10].classList.remove("hide");
+        }
+    </code>
+    </pre>
+        <div class="display" id="display9"></div>
+        <button class="runbutton" onclick="addClass()">Run</button>
+        <button class="runbutton" onclick="removeClass()">Clear</button>
+    </div>
+    <br>
+            <div class="codeblock">
+        <h1>Trigger CSS Animations</h1>
+    <pre>
+    <code>
+        function startAnimation() {
+            var button = document.getElementById("animated_button");
+            button.classList.add("animation");
+        }
+    </code>
+    </pre>
+        <div class="display" id="display10"></div>
+        <button class="runbutton" onclick="startAnimation()" id="animated_button">Run</button>
+    </div>
+    <br>
+            <div class="codeblock">
+        <h1>Events with Javascript (click x2)</h1>
+    <pre>
+    <code>
+        function changeButtonColor() {
+            var button = document.getElementById("onclick_button");
+            button.style.background = "green";
+        }
+
+        function changeButton() {
+            var button = document.getElementById("onclick_button");
+            button.addEventListener("click", changeButtonColor);
+        }
+    </code>
+    </pre>
+        <div class="display" id="display11"></div>
+        <button class="runbutton" onclick="changeButton()" id="onclick_button">Run</button>
+    </div>
+        <br>
+            <div class="codeblock">
+        <h1>HTML Tags (Audio, Video, and Canvas)</h1>
+    <pre>
+    <code>
+        function makeCanvas() {
+            var canvasArea = document.getElementById("canvas");
+            canvasArea.fillText("This is built in a canvas!", 10, 50);
+        }
+    </code>
+    </pre>
+    <canvas id="canvas"></canvas>
+    <audio controls><source src="audiotest.mp4" type="audio/mp4"></audio>
+    <video width="300" height="200" controls><source src="testvideo.mp4" type="video/mp4"></video>
+        <div class="display" id="display12"></div>
+        <button class="runbutton" onclick="makeCanvas()" id="onclick_button">Run</button>
+    </div>
+        <br>
+    <div class="codeblock">
+        <h1>CSS3 Transitions without Custom Libraries</h1>
+    <pre>
+    <code>
+            .button_transition {
+            transition: width 2s;
+        }
+
+        .button_transition:hover {
+            background-color: orange;
+            width: 200px;
+        }
+    
+        function triggerTransition() {
+            var button = document.getElementById("transition_button");
+            button.classList.add("button_transition");
+        }
+    </code>
+    </pre>
+        <div class="display" id="display12"></div>
+        <button class="runbutton" id="transition_button" onclick="triggerTransition()">Run</button>
+    </div>
+            <br>
+    <div class="codeblock">
+        <h1>CSS3 Transforms without Custom Libraries</h1>
+    <pre>
+    <code>
+        .button_transformation {
+        transform: rotate(30deg);
+        }
+    
+        function triggerTransform() {
+            var button = document.getElementById("transform_button");
+            button.classList.add("button_transformation");
+        }
+    </code>
+    </pre>
+        <div class="display" id="display13"></div>
+        <button class="runbutton" id="transform_button" onclick="triggerTransform()">Run</button>
+    </div>
+        <br>
+            <div class="codeblock">
+        <h1>CSS3 Animations without Custom Libraries</h1>
+    <pre>
+    <code>
+        @keyframes animated {
+            0% {left:0px; top:0px;}
+            25%{left:100px; top:0px;}
+            50%{left:100px; top:100px;}
+            75%{left:0px; top:100px;}
+            100%{left:0px; top:0px;}
+        }
+
+        .animation {
+            position: relative;
+            animation-name: animated;
+            animation-duration: 5s;
+        }
+    
+        function startAnimation() {
+            var button = document.getElementById("animated_button2");
+            button.classList.add("animation");
+        }
+    </code>
+    </pre>
+        <div class="display" id="display14"></div>
+        <button class="runbutton" onclick="startCSS3Animation()" id="animated_button2">Run</button>
+    </div>
+</body>
+</html>

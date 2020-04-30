@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="CIT 261 Projects">
+<title>CIT 261 Code</title>
+<style>
+    header {
+        font-family: Raleway;
+        font-size: 35px;
+        text-align: center;
+        grid-area: header;
+        color: white;
+    }
+    
+    body {
+        text-align: left;
+        background-image: linear-gradient(90deg, #13547a, #80d0c7);
+    }
+    
+    h1 {
+        font-family: Raleway;
+        font-size: 30px;
+        color: white;
+        margin-left: 10px;
+    }
+    
+    h2 {
+        font-family: Raleway;
+        font-size: 24px;
+        color: white;
+        margin-left: 10px;
+        margin-bottom: 5px;
+    }
+    
+    p {
+        font-family: Raleway;
+        color: white;
+        margin-left: 10px;
+    }
+    
+    button {
+        border-radius: 5px;
+        border: none;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+        width: 200px;
+        height: 50px;
+        font-family: Raleway;
+        background-color: blue;
+        font-size: 20px;
+    }
+    
+    button:active {
+        background: purple;
+    }
+    
+    button:visited {
+        background: purple
+    }
+    
+    div.codeblock {
+        border-color: black;
+        border-radius: 7px;
+        border: solid;
+    }
+    
+    code {
+        color: white;
+        font-size: 16px;
+    }
+    
+    .runbutton {
+        border-radius: 5px;
+        border: none;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+        width: 100px;
+        height: 25px;
+        font-family: Raleway;
+        background-color: blue;
+        font-size: 20px;
+        margin-bottom: 2px;
+        margin-left: 2px;
+    }
+    
+    #viewlarge {
+        width: 200px
+    }
+    
+    #originalsize {
+        width: 200px;
+        z-index: 900;
+    }
+    
+    .runbutton:hover {
+        background-color: darkslateblue;
+    }
+    
+    .runbutton:active {
+        background-color: purple;
+    }
+     
+    .display {
+        color: white;
+        font-family: Raleway;
+        font-size: 20px;
+    }
+    
+    pre {
+        background-color: gray;
+        border-radius: 25px;
+    }
+    
+    @keyframes animated {
+        0% {left:0px; top:0px;}
+        20% {left:5px; top:0px;}
+        40% {left:0px; top:0px;}
+        60% {left:5px; top:0px;}
+        80% {left:0px; top:0px;}
+        90% {left:5px; top:0px;}
+        100% {left:0px; top:0px;}
+    }
+    
+    .animation {
+        position: relative;
+        animation-name: animated;
+        animation-duration: 1.5s;
+    }
+    
+    .hide {
+        display: none;
+    }
+    
+    canvas {
+        border: 1px solid white;
+        width: 300px;
+    }
+    
+    .button_transition {
+        transition: width 2s;
+    }
+    
+    .button_transition:hover {
+        background-color: orange;
+        width: 200px;
+    }
+    
+    .sprite {
+        position: relative;
+        margin-left: 200px;
+        margin-bottom: 15%;
+        margin-top: 15%;
+        -webkit-transform: scaleY(3.0) scaleX(3.0);
+        z-index: -1;
+        -webkit-transition: width 2s height 2s, -webkit-transform 2s;
+        transition: width 2s, height 2s, transform 2s;
+    }
+    
+    .pokemonbox {
+        margin-left: 10px;
+        border-radius: 5px;
+        background-color: transparent;
+        color: white;
+    }
+    
+    .hidden {
+        display: none;
+    }
+    
+</style>
+    
+
+<script>
+function randomIntFromInterval(min, max) { 
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+    
+function getPokemon(){
+    var xhttp = new XMLHttpRequest();
+    var pokemonname = document.getElementById("pokemonname").value;
+    pokemonname = pokemonname.toLowerCase();
+    var moves = 0;
+    var movenum = 0;
+    var pokemonmoves = '';
+    var types = '';
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var response = this.responseText;
+            var pokemon = JSON.parse(response);
+            moves = pokemon.moves.length;
+            var i = 0;
+            while (i < 4)
+                {
+                    movenum = randomIntFromInterval(0, moves);
+                    var pokemonmove = JSON.stringify(pokemon.moves[movenum].move.name);
+                    pokemonmove = pokemonmove.replace(/["]+/g,'');
+                    pokemonmove = pokemonmove.replace('-', ' ');
+                    if (pokemonmoves.includes(pokemonmove))
+                    {
+                        var alreadyused = movenum;
+                        while (movenum == alreadyused)
+                        {
+                            movenum = randomIntFromInterval(0, moves);
+                        }
+                        var pokemonmove = JSON.stringify(pokemon.moves[movenum].move.name);
+                    }
+                    pokemonmove = pokemonmove.charAt(0).toUpperCase() + pokemonmove.substring(1);
+                    if (i < 3)
+                        {
+                            pokemonmove += ', '
+                            pokemonmoves += pokemonmove;
+                        }
+                    else
+                        {
+                            pokemonmoves += pokemonmove;
+                        }
+                    i++;
+                }
+            var typescounter = 0;
+            while (typescounter < pokemon.types.length)
+            {
+                pokemontype = JSON.stringify(pokemon.types[typescounter].type.name);
+                pokemontype = pokemontype.replace(/["]+/g,'');
+                if (typescounter != (pokemon.types.length - 1))
+                    {
+                        pokemontype += ', '
+                    }
+                pokemontype = pokemontype.charAt(0).toUpperCase() + pokemontype.substring(1);
+                types += pokemontype;
+                typescounter++;
+            }
+            URL = JSON.stringify(pokemon.sprites.front_default);
+            URL = URL.replace(/["]+/g,'');
+            pokemonname = pokemonname.charAt(0).toUpperCase() + pokemonname.substring(1);
+            document.getElementById("Pokemon").innerHTML = pokemonname;
+            document.getElementById("PokemonMoves").innerHTML = "Possible Move Combination: " + pokemonmoves;
+            document.getElementById("PokemonTypes").innerHTML = "Type\(s\): " + types;
+            document.getElementById("Sprite").innerHTML = "Sprite:"
+            localStorage.setItem("Sprite", URL);
+            var sprite = document.getElementById("PokemonSprite");
+            var spriteURL = localStorage.getItem("Sprite");
+            sprite.src = spriteURL;
+            sprite.srcset = spriteURL;
+            sprite.classList.remove("hidden");
+        }
+    }
+    xhttp.open("GET",`https://pokeapi.co/api/v2/pokemon/${pokemonname}/`, true);
+    xhttp.send();
+}
+
+    
+function json()
+{
+    var display = document.getElementById('display4');
+    var obj = '{ "Name": "Faker", "Role": "Mid Lane", "Championships": {"Championship_1": 2013, "Championship_2": 2015, "Championship_3": 2016, "Championship_4": 2017},"Team": "SKT"}';
+    var FakerJSON = JSON.stringify(obj);
+    display.innerHTML += "This is the string:" + "<br>";
+    display.innerHTML += FakerJSON + "<br>" + "<br>";
+    var Faker = JSON.parse(FakerJSON);
+    display.innerHTML += "This is the JSON Object:" + "<br>";
+    display.innerHTML += Faker;
+}
+    
+function loadJSON() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("display6").innerHTML += this.responseText;
+        }
+    };
+    xhttp.open("GET", "ajaxtest.json", true);
+    xhttp.send()
+}
+    
+function changeDocument() {
+    var header = document.getElementById("changeheader");
+    var para = document.createElement("p");
+    var text = document.createTextNode("DOM Manipulation Code Success!");
+    var titles = document.querySelectorAll('h1');
+    titles[9].style.color = "black";
+    para.appendChild(text);
+    header.appendChild(para);
+}
+    
+function fixDocument() {
+    var header = document.getElementById("changeheader");
+    header.removeChild(header.childNodes[1]);
+    header.style.color = "white";
+}
+
+function changeCSS() {
+    var titles = document.querySelectorAll('h1');
+    titles[11].style.color = "black";
+}
+
+function addClass() {
+    var button = document.getElementById("addbutton");
+    button.classList.add("animation");
+}
+    
+function enlarge() {
+    var sprite = document.getElementById("PokemonSprite");
+    sprite.classList.add("sprite");
+}
+    
+function shrink() {
+    var sprite = document.getElementById("PokemonSprite");
+    sprite.classList.remove("sprite");
+}   
+    
+function removeClass() {
+    var button = document.getElementById("addbutton");
+    button.classList.remove("animation");
+}
+    
+function triggerTransition() {
+    var button = document.getElementById("transition_button");
+    button.classList.add("button_transition");
+}
+    
+function triggerTransform() {
+    var button = document.getElementById("transform_button");
+    button.classList.add("button_transformation");
+}
+
+function startCSS3Animation() {
+    var button = document.getElementById("animated_button2");
+    button.classList.add("animation");
+}
+</script>
+    
+    
+
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    
+<body>
+    <h1>Pokedex</h1>
+    <div>
+        <h2>Enter a Pokemon:</h2>
+        <input type="text" name="pokemonname" class="pokemonbox" id="pokemonname" value="pichu">
+        <button class="runbutton" id="addbutton">Find</button>
+    </div>
+    <div class="codeblock">
+        <h2>Information</h2>
+        <p id="Pokemon"></p>
+        <p id="PokemonMoves"></p>
+        <p id="PokemonTypes"></p>
+        <p id="Sprite"></p>
+        <img id="PokemonSprite" src="about:blank" alt="The sprite of the pokemon!" class="hidden">
+        <br>
+        <button class="runbutton" id="viewlarge">View Large</button> <button class="runbutton" id="originalsize">Original Size</button>
+    </div>
+            <script>var btn = document.getElementById("addbutton");
+    btn.addEventListener("click", getPokemon);
+    btn.addEventListener("click", addClass);
+    var btn2 = document.getElementById("viewlarge");
+    btn2.addEventListener("click", enlarge);
+    var btn3 = document.getElementById("originalsize")
+    btn3.addEventListener("click", shrink);</script>
+</body>
+</html>

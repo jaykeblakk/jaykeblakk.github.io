@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="CIT 261 Projects">
+<title>CIT 261 Code</title>
+<style>
+    header {
+        font-family: Raleway;
+        font-size: 35px;
+        text-align: center;
+        grid-area: header;
+        color: white;
+    }
+    
+    body {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        grid-template-areas: 
+            "header header header"
+            "div div div"
+            "div div div"
+            "div div div";
+        text-align: center;
+        background-image: linear-gradient(90deg, #13547a, #80d0c7);
+    }
+    
+    .buttonspace {
+        margin-top: 20px;
+    }
+    
+    h1 {
+        font-family: Raleway;
+        font-size: 20px;
+    }
+    
+    button {
+        border-radius: 5px;
+        border: none;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+        width: 200px;
+        height: 50px;
+        font-family: Raleway;
+        background-color: blue;
+        font-size: 20px;
+    }
+    
+    button:active {
+        background: purple;
+    }
+    
+    button:visited {
+        background: purple
+    }
+    
+</style>
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<body>
+    <header>CIT 261 Fluency Code<br><br></header>
+    <div class="column1">
+    <a href="basic.html" target="_blank"><button>Basic Fluency Examples</button></a>
+    </div>
+    <div class="column2">
+    <a href="working.html" target="_blank"><button>Working Fluency Examples</button></a>
+    </div>
+    <div class="column3">
+    <a href="skilled.html" target="_blank"><button>Skilled Fluency Examples</button></a>
+    </div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div>
+        <a href="finalproject.html" target="_blank"><button class="buttonspace">Final Project</button></a>
+    </div>
+</body>
+</html>

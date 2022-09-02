@@ -88,3 +88,9 @@ h1{
 *{
    box-sizing: border-box;
 }
+
+@media only screen and (max-width: 600px)
+{
+    display: grid;
+    grid-template-columns: auto;
+}

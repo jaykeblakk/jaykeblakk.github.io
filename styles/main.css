@@ -96,4 +96,11 @@ h1{
     grid-template-columns: auto;
     background-color: lightgray;
     }
+    .grid_items {
+  padding: 3.75%;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-column-gap: 0;
+  grid-row-gap: 20px;
+}
 }
